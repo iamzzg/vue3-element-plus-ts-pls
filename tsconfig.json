@@ -1,0 +1,20 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": ["types/**/*.ts","types/**/*.d.ts", "src/**/*.ts","src/**/*.d.ts","src/**/*.tsx", "src/**/*.vue"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {//此处映射相对于baseUrl
+      "@/*": ["./src/*"],
+      "#/*":["./types/*"]
+    },
+    // "lib": ["ESNext"],// 指定目标运行环境的内置库声明
+    "types": ["vite/client","element-plus/global"],// 加载哪些模块的声明文件
+    "typeRoots": ["./node_modules/@types","./types"]// 声明文件查找的位置
+  },
+
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
