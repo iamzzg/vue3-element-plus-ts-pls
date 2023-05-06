@@ -1,4 +1,5 @@
 import Layout from '@/layout/default/index.vue'
+import type { AppRouteRecordRaw } from '../types'
 export default {
   path: '/home',
   name: 'HomeLayout',
@@ -10,4 +11,4 @@ export default {
       component: () => import('@/views/home/index.vue')
     }
   ]
-}
+} as AppRouteRecordRaw

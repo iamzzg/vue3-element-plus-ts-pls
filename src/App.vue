@@ -1,19 +1,8 @@
-<script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import Layout from '@/layout/default/index.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <el-config-provider>
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-        </nav>
-      </div>
-    </header>
-    <Layout></Layout>
+    <router-view></router-view>
   </el-config-provider>
 </template>
 

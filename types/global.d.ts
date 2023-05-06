@@ -1,6 +1,15 @@
-declare global{
-   interface test{
-    name:string
+declare global {
+  // 全局类型
+  declare type Nullable<T> = T | null
+
+  declare type Recordable<T = any> = Record<string, T>
+
+  interface ImportMetaEnv extends ViteEnv {
+    __: unknown
+  }
+
+  declare interface ViteEnv {
+    VITE_PUBLIC_PATH: string
   }
 }
 
