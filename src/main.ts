@@ -20,5 +20,7 @@ function bootstrap() {
 
   registerGlobComp(app)
 
+  // test lint-staged husky
+
   app.mount('#app')
 }
