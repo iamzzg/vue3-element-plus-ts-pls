@@ -3,7 +3,12 @@ require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
-
+  // 使window,document,module这些变量不报错
+  env: {
+    es6: true,
+    node: true,
+    browser: true
+  },
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
