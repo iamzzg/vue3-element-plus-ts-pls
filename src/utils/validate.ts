@@ -2,7 +2,7 @@
  * @param {string} path
  * @returns {Boolean}
  */
-export function isExternal(path) {
+export function isExternal(path: string): path is string {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
@@ -30,7 +30,7 @@ export function isUndefOrNull(arg: any): boolean {
   return arg === undefined || arg === null
 }
 
-export function isUndf(arg: any): boolean {
+export function isUndef(arg: any): boolean {
   return !isDef(arg)
 }
 
