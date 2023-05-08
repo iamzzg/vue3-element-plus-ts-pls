@@ -20,8 +20,5 @@ function bootstrap() {
 
   registerGlobComp(app)
 
-  // test lint-staged husky
-  // test commitlint
-
   app.mount('#app')
 }
