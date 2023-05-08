@@ -1,5 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore, type Pinia } from 'pinia'
 import { useDark, useToggle } from '@vueuse/core'
+import type { App } from 'vue'
 
 export enum ThemeEnum {
   DARK = 'dark',
@@ -25,11 +26,18 @@ export const useAppStore = defineStore('appSetting', {
   actions: {
     toggleTheme() {
       if (isDark.value) {
-        toggleDark(false)
+        // TODO: 修复切换light时 值是 auto,这么做也没有效果
+        localStorage.setItem(themeKey, ThemeEnum.LIGHT)
       } else {
-        toggleDark(true)
+        localStorage.setItem(themeKey, ThemeEnum.DARK)
       }
+      toggleDark()
+
       this.theme = localStorage.getItem(themeKey) as string
     }
   }
 })
+
+export const useAppStoreWithOut = (store: Pinia | null | undefined) => {
+  return useAppStore(store)
+}

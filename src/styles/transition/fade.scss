@@ -3,14 +3,17 @@
 .slide-fade-leave-active {
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
+
 .slide-fade-enter-from {
+  opacity: 0;
   transform: translateX(-50%);
-  opacity: 0;
 }
+
 .slide-fade-leave-to {
-  transform: translateX(50%);
   opacity: 0;
+  transform: translateX(50%);
 }
+
 .slide-fade-leave-active {
   position: absolute;
 }
