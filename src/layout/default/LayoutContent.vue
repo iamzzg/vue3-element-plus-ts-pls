@@ -5,10 +5,22 @@ export default defineComponent({
   name: 'LayoutContent',
   setup() {
     function render() {
-      return <PageContent class={'p-[20px]'}></PageContent>
+      return (
+        <div class="layout-container">
+          <PageContent></PageContent>
+        </div>
+      )
     }
 
     return render
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.layout-container {
+  height: calc(100vh - 80px);
+  padding: 20px;
+  overflow: auto;
+}
+</style>

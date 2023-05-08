@@ -17,6 +17,7 @@
     "svgo": "svgo -f src/assets/svgs -o src/assets/icons --config=src/assets/svgo.config.js"
   },
   "dependencies": {
+    "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
     "element-plus": "^2.3.4",
     "pinia": "^2.0.32",

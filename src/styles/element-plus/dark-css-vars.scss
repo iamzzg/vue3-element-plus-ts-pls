@@ -1,0 +1,6 @@
+@import 'element-plus/theme-chalk/dark/css-vars.css';
+
+html.dark {
+  --el-bg-color-page: blue !important;
+  --el-color-primary: blue;
+}

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, type Pinia } from 'pinia'
 
 export const useCachedViewStore = defineStore('cachedView', {
   state: () => {
@@ -27,3 +27,7 @@ export const useCachedViewStore = defineStore('cachedView', {
     }
   }
 })
+
+export function useCachedViewStoreWithOut(app: Pinia | null | undefined) {
+  return useCachedViewStore(app)
+}

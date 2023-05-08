@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useCachedViewStore } from '@/stores/cachedView'
+import { useCachedViewStore } from '@/stores/modules/cachedView'
 import { computed } from 'vue'
 
 const cachedViewStore = useCachedViewStore()

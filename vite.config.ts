@@ -23,7 +23,12 @@ export default defineConfig({
     Components({
       dts: true,
       dirs: ['src/components'],
-      resolvers: [ElementPlusResolver()]
+      resolvers: [
+        // 按需引入重写scss颜色变量
+        ElementPlusResolver({
+          importStyle: 'sass'
+        })
+      ]
     }),
     // 生成svg-sprite图标的文件夹位置
     createSvgIconsPlugin({
@@ -35,7 +40,16 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '~/': `${path.resolve(__dirname, 'src')}/`
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 按需引入改变主题色
+        additionalData: `@use "~/styles/element-plus/color.scss" as *;`
+      }
     }
   },
   // VITE默认不加载 env 文件，可以通过process来获取

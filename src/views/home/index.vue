@@ -1,8 +1,35 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from '@/stores/modules/appSetting'
+import { ref } from 'vue'
+
+const appStore = useAppStore()
+const show = ref(true)
+
+const test = () => {
+  console.log(appStore.theme)
+  appStore.toggleTheme()
+}
+
+const toggleShow = () => {
+  show.value = !show.value
+}
+</script>
 
 <template>
   <main>
+    <el-button type="primary" size="default" @click="test">切换主题</el-button>
     <el-button type="primary" size="default">fdf</el-button>
     <div class="text-[40px]">fdsf</div>
+    <el-button type="primary" size="default" @click="toggleShow">切换</el-button>
+
+    <transition name="el-fade-in-linear">
+      <div v-if="show" class="w-40 h-40 bg-blue-300 rounded-md"></div>
+    </transition>
+    <div class="test">hello world</div>
   </main>
 </template>
+<style lang="scss" scoped>
+.test {
+  color: $color-primary;
+}
+</style>
