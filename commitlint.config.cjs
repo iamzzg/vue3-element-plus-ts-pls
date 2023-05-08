@@ -1,5 +1,6 @@
 // commitlint的配置,也给commitizen(commit消息提示,使用cz-git适配器,在package.json中指定)来使用
 // 使用git commit 不会出现该 commit 消息提示,使用 pnpm commit (git-cz) 就会,并且会进入lint-staged流程
+// 项目是 esm 项目，必须以cjs结尾，否则可能在lint过程中会报错
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
