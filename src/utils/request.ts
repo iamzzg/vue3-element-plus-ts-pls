@@ -1,28 +1,30 @@
 import axios from 'axios'
 
 const request = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_BASIC_API,
   timeout: 60 * 1000,
   headers: {
     'Content-Type': 'application/json'
   }
 })
 
-request.interceptors.request(
-  config => {
+request.interceptors.request.use(
+  (config) => {
     // config.headers.Authorization = ''
     return config
   },
-  err => {
+  (err) => {
     return Promise.reject(err)
   }
 )
 
 request.interceptors.response.use(
-  resp => {
+  (resp) => {
     return resp.data
   },
-  err => {
+  (err) => {
     return Promise.reject(err)
   }
 )
+
+export default request

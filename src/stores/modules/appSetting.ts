@@ -1,39 +1,40 @@
 import { defineStore, type Pinia } from 'pinia'
-import { useDark, useToggle } from '@vueuse/core'
-import type { App } from 'vue'
+import { setDomAttribute } from '@/utils/doms'
 
 export enum ThemeEnum {
   DARK = 'dark',
   LIGHT = 'light'
 }
 
+interface AppSetting {
+  theme: string
+}
+
 const themeKey = 'app-theme'
 
-const isDark = useDark({
-  storageKey: themeKey,
-  valueDark: ThemeEnum.DARK,
-  valueLight: ThemeEnum.LIGHT,
-  initialValue: ThemeEnum.LIGHT
-})
-const toggleDark = useToggle(isDark)
-
 export const useAppStore = defineStore('appSetting', {
-  state: () => {
+  state: (): AppSetting => {
     return {
       theme: localStorage.getItem(themeKey) || ThemeEnum.LIGHT
     }
   },
+  getters: {
+    isDark(): boolean {
+      return this.theme == ThemeEnum.DARK
+    }
+  },
   actions: {
     toggleTheme() {
-      if (isDark.value) {
+      if (this.isDark) {
         // TODO: 修复切换light时 值是 auto,这么做也没有效果
-        localStorage.setItem(themeKey, ThemeEnum.LIGHT)
+        this.theme = ThemeEnum.LIGHT
+        setDomAttribute(document.querySelector('html') as HTMLElement, 'class', this.theme)
+        localStorage.setItem(themeKey, this.theme)
       } else {
-        localStorage.setItem(themeKey, ThemeEnum.DARK)
+        this.theme = ThemeEnum.DARK
+        setDomAttribute(document.querySelector('html') as HTMLElement, 'class', this.theme)
+        localStorage.setItem(themeKey, this.theme)
       }
-      toggleDark()
-
-      this.theme = localStorage.getItem(themeKey) as string
     }
   }
 })

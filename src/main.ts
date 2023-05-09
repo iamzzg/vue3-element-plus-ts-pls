@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
@@ -9,13 +8,15 @@ import 'tailwindcss/tailwind.css'
 import './styles/index.scss'
 
 import { registerGlobComp } from './components/registerGlobComp'
+import { setupStore } from './stores'
 
 bootstrap()
 
 function bootstrap() {
   const app = createApp(App)
 
-  app.use(createPinia())
+  setupStore(app)
+
   app.use(router)
 
   registerGlobComp(app)

@@ -10,6 +10,8 @@ declare global {
 
   declare interface ViteEnv {
     VITE_PUBLIC_PATH: string
+    VITE_BASIC_API: string
+    VITE_PORT: number
   }
 }
 

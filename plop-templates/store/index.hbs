@@ -1,0 +1,19 @@
+import { defineStore, type Pinia } from 'pinia'
+
+export const use{{properCase name}}Store = defineStore('{{name}}', {
+  state: () => {
+    return {
+      
+    }
+  },
+  getters: {
+    
+  },
+  actions: {
+   
+  }
+})
+
+export function use{{properCase name}}StoreWithOut(store: Pinia | null | undefined) {
+  return use{{properCase name}}Store(store)
+}

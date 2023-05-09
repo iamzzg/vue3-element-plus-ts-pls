@@ -1,9 +1,10 @@
 /**
  * 下载文件
- * @param {*} blobPart 二进制对象
- * @param {*} filename 文件命
+ * @param {Blob} blobPart 二进制对象
+ * @param {*} filename 文件名
+ * @param {string} ext 后缀名
  */
-export function useDownLoad(blobPart, filename, ext = '.xls') {
+export function useDownLoad(blobPart: Blob | File | string, filename: string, ext = '.xls') {
   const blob = new Blob([blobPart])
   const objectUrl = URL.createObjectURL(blob)
   const a = document.createElement('a')

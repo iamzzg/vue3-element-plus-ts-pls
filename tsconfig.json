@@ -7,7 +7,9 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/assets/svgo.config.js"
+    "src/assets/svgo.config.js",
+    "build/**/*.ts",
+    "vite.config.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -19,8 +21,8 @@
     "allowJs": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"], // 指定目标运行环境的内置库声明
     "types": ["vite/client", "element-plus/global"], // 加载哪些模块的声明文件
-    "typeRoots": ["./node_modules/@types", "./types"] // 声明文件查找的位置
-    // "ignoreDeprecations": "5.0"
+    "typeRoots": ["./node_modules/@types/", "./types"], // 声明文件查找的位置,默认导入@types,[]不导入
+    "ignoreDeprecations": "5.0"
   },
 
   "references": [
