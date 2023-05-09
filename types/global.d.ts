@@ -12,6 +12,7 @@ declare global {
     VITE_PUBLIC_PATH: string
     VITE_BASIC_API: string
     VITE_PORT: number
+    VITE_DROP_CONSOLE: boolean
   }
 }
 

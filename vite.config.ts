@@ -1,14 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import AutoImport from 'unplugin-auto-import/vite' // 自动导入组件
-import Components from 'unplugin-vue-components/vite' // 自动导入组件
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 import path from 'node:path'
 import { wrapperEnv } from './build/utils'
+import { createVitePlugins } from './build/vite/plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
@@ -20,39 +16,14 @@ export default defineConfig(({ mode, command }) => {
 
   const isBuild = command == 'build'
 
-  console.log(env)
-  const { VITE_PUBLIC_PATH, VITE_BASIC_API, VITE_PORT } = wrapperEnv(env)
+  const viteEnv = wrapperEnv(env)
+
+  const { VITE_PUBLIC_PATH, VITE_BASIC_API, VITE_PORT, VITE_DROP_CONSOLE } = viteEnv
 
   return {
     root,
     base: VITE_PUBLIC_PATH,
-    plugins: [
-      vue(),
-      vueJsx(),
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-        eslintrc: {
-          enabled: true
-        }
-      }),
-      Components({
-        dts: true,
-        dirs: [],
-        resolvers: [
-          // 按需引入重写scss颜色变量
-          ElementPlusResolver({
-            importStyle: 'sass'
-          })
-        ]
-      }),
-      // 生成svg-sprite图标的文件夹位置
-      createSvgIconsPlugin({
-        // 指定需要缓存的图标文件夹
-        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-        // 指定symbolId格式
-        symbolId: 'icon-[dir]-[name]'
-      })
-    ],
+    plugins: createVitePlugins(viteEnv, isBuild),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -66,6 +37,28 @@ export default defineConfig(({ mode, command }) => {
           additionalData: `@use "~/styles/element-plus/color.scss" as *;`
         }
       }
+    },
+    esbuild: {
+      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
+    },
+    build: {
+      target: 'es2015', //默认值是 modules,表示构建目标是现代浏览器,
+      // cssTarget:"chrome61",// 构建的css目标浏览器
+      // minify: 'terser',// 默认minify使用的是esbuild
+      /**
+       * 当 minify=“minify:'terser'” 解开注释
+       * Uncomment when minify="minify:'terser'"
+       */
+      // terserOptions: {
+      //   compress: {
+      //     keep_infinity: true,
+      //     drop_console: VITE_DROP_CONSOLE,
+      //   },
+      // },
+      chunkSizeWarningLimit: 2000 // 规定触发警告的 chunk 大小,kbs
+    },
+    define: {
+      //定义全局变量,替换
     },
     // VITE默认不加载 env 文件，可以通过process来获取
     server: {

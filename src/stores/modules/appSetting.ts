@@ -14,8 +14,11 @@ const themeKey = 'app-theme'
 
 export const useAppStore = defineStore('appSetting', {
   state: (): AppSetting => {
+    let initialTheme = localStorage.getItem(themeKey)
+    initialTheme = initialTheme ? initialTheme : ThemeEnum.LIGHT
+    setDomAttribute(document.querySelector('html') as HTMLElement, 'class', initialTheme)
     return {
-      theme: localStorage.getItem(themeKey) || ThemeEnum.LIGHT
+      theme: initialTheme
     }
   },
   getters: {
