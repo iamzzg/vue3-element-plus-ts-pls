@@ -11,8 +11,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElImage: typeof import('element-plus/es')['ElImage']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Src: typeof import('./src/components/SvgIcon/src/index.vue')['default']
   }
 }

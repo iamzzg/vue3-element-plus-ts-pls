@@ -17,3 +17,11 @@ export const withInstall = <T>(comp: T, alias?: string) => {
   }
   return comp as T
 }
+/**
+ * 通过相对路径引入@/assets/images/下的资源--一个被完整解析的静态资源 URL
+ * @param imgName 图片名称
+ * @returns 被完整解析的静态资源 URL
+ */
+export const getImageUrl = (imgName: string) => {
+  return new URL(`../assets/images/${imgName}`, import.meta.url).href
+}

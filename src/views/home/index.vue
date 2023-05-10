@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 const appStore = useAppStore()
 const show = ref(true)
+const date = ref(new Date())
 
 const test = () => {
   console.log(appStore.theme)
@@ -26,6 +27,8 @@ const toggleShow = () => {
       <div v-if="show" class="w-40 h-40 bg-blue-300 rounded-md"></div>
     </transition>
     <div class="test">hello world</div>
+
+    <el-date-picker v-model="date" type="date" placeholder="Pick a day" />
   </main>
 </template>
 <style lang="scss" scoped>

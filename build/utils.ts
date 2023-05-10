@@ -16,3 +16,7 @@ export const wrapperEnv = (env: Recordable): ViteEnv => {
 
   return ret
 }
+
+export const isBuildReport = () => {
+  return process.env.REPORT === 'true'
+}

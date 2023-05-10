@@ -1,4 +1,3 @@
-/* 覆盖element-plus scss变量 */
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
@@ -7,7 +6,7 @@
   )
 );
 
-// $color-primary , 注入了每个vue文件的style标签里
+// $color-primary
 
 // $colors: () !default;
 // $colors: map.deep-merge(

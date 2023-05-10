@@ -1,10 +1,22 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig, loadEnv } from 'vite'
+import pkg from './package.json'
 
 import path from 'node:path'
 import { wrapperEnv } from './build/utils'
 import { createVitePlugins } from './build/vite/plugin'
+import dayjs from 'dayjs'
+
+// app package info
+const { name, version, dependencies, devDependencies } = pkg
+const __APP__INFO = {
+  name,
+  version,
+  dependencies,
+  devDependencies,
+  lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
@@ -42,7 +54,7 @@ export default defineConfig(({ mode, command }) => {
       pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
     build: {
-      target: 'es2015', //默认值是 modules,表示构建目标是现代浏览器,
+      // target: 'es2015', //默认值是 modules,表示构建目标是现代浏览器,
       // cssTarget:"chrome61",// 构建的css目标浏览器
       // minify: 'terser',// 默认minify使用的是esbuild
       /**
@@ -59,6 +71,7 @@ export default defineConfig(({ mode, command }) => {
     },
     define: {
       //定义全局变量,替换
+      __APP__INFO: JSON.stringify(__APP__INFO)
     },
     // VITE默认不加载 env 文件，可以通过process来获取
     server: {
