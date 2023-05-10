@@ -22,6 +22,7 @@ specifiers:
   cz-conventional-changelog: ^3.3.0
   cz-git: ^1.6.1
   dayjs: ^1.11.7
+  dotenv: ^16.0.3
   element-plus: ^2.3.4
   eslint: ^8.34.0
   eslint-plugin-vue: ^9.9.0
@@ -84,6 +85,7 @@ devDependencies:
   cross-env: 7.0.3
   cz-conventional-changelog: 3.3.0
   cz-git: 1.6.1
+  dotenv: 16.0.3
   eslint: 8.40.0
   eslint-plugin-vue: 9.11.0_eslint@8.40.0
   esno: 0.16.3
@@ -3698,6 +3700,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
+    dev: true
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /eastasianwidth/0.2.0:
