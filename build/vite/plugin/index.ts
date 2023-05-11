@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { setupSvgSpritePlugin } from './svg-sprite'
 import { setupAutoImportAndComponentPlugin } from './autoimport-component'
 import { setupVisualizerPlugin } from './visualizer'
+import { setupHtmlPlugin } from './html'
 
 export const createVitePlugins = (viteEnv: ViteEnv, isBuild: boolean) => {
   const vitePlugins: Plugin[] = []
@@ -18,6 +19,8 @@ export const createVitePlugins = (viteEnv: ViteEnv, isBuild: boolean) => {
   vitePlugins.push(...setupAutoImportAndComponentPlugin())
 
   vitePlugins.push(...setupVisualizerPlugin())
+
+  vitePlugins.push(...setupHtmlPlugin(viteEnv, isBuild))
 
   return vitePlugins
 }

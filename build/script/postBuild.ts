@@ -2,7 +2,8 @@ import chalk from 'chalk'
 import fs, { writeFileSync } from 'fs-extra'
 
 import pkg from '../../package.json'
-import { getRootPath, getEnvFileExts, getEnvConfig } from '../utils'
+import { getRootPath, getEnvConfig } from '../utils'
+import { GLOBAL_CONFIG_FILE_NAME as configFileName, OUTPUT_DIR } from '../constant'
 
 // build后脚本,构建 _app.config.js 定义全局变量
 export const runPostBuild = () => {
@@ -18,8 +19,8 @@ export const runPostBuild = () => {
   }
 }
 const configName = pkg.name
-const OUTPUT_DIR = 'dist'
-const configFileName = '_app.config.js'
+// const OUTPUT_DIR = 'dist'
+// const configFileName = GLOBAL_CONFIG_FILE_NAME
 
 /**
  * 创建window.config的配置文件,将一些.env中的以VITE_GLOBAL开头的变量暴露到window中
@@ -37,7 +38,9 @@ function buildGlobalConfig() {
         writable: false,
       });
     `.replace(/\s/g, '')
+    // 创建目录，如果存在，则不做操作,此时vite应该打包完生成dist目录
     fs.mkdirp(getRootPath(OUTPUT_DIR))
+    // 同步写入文件
     writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr)
     console.log(chalk.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`)
     console.log(chalk.gray(OUTPUT_DIR + '/' + chalk.green(configFileName)) + '\n')

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'node:path'
 import dotenv from 'dotenv'
+import { EXTRACT_ENV_PREFIX } from './constant'
 
 // 把环境变量字符串变成字符串，变量，
 export const wrapperEnv = (env: Recordable): ViteEnv => {
@@ -59,19 +60,19 @@ export const getEnvFileExts = (): string[] => {
  * @param envNames .env文件列表
  * @returns
  */
-export const getEnvConfig = (match = 'VITE_GLOBAL_', envNames = getEnvFileExts()) => {
+export const getEnvConfig = (match = EXTRACT_ENV_PREFIX, envNames = getEnvFileExts()) => {
   const globalEnv = {}
 
   envNames.forEach((item) => {
     try {
       const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)))
-      console.log(env)
+      // console.log(env)
       Object.assign(globalEnv, env)
     } catch (error) {
       console.log(`ERROR: in parsing ${item}`, error)
     }
   })
-  console.log('筛选前::>>', globalEnv)
+  // console.log('筛选前::>>', globalEnv)
 
   const reg = new RegExp(`^(${match})`)
 
@@ -80,6 +81,15 @@ export const getEnvConfig = (match = 'VITE_GLOBAL_', envNames = getEnvFileExts()
       Reflect.deleteProperty(globalEnv, key)
     }
   })
-  console.log('筛选后::>>', globalEnv)
+  // console.log('筛选后::>>', globalEnv)
   return globalEnv
+}
+
+/**
+ * 获取挂载到 window 下的 key 名
+ * @param env
+ * @returns
+ */
+export const getConfInWindowKey = (env: ViteEnv) => {
+  return `__PROD__${env.VITE_WINDOW_CONFIG_KEY || 'APP'}__CONF__`.toUpperCase().replace(/\s/g, '')
 }

@@ -10,9 +10,11 @@ declare global {
 
   declare interface ViteEnv {
     VITE_PUBLIC_PATH: string
-    VITE_BASIC_API: string
     VITE_PORT: number
     VITE_DROP_CONSOLE: boolean
+    VITE_GLOBAL_BASIC_API: string
+    VITE_GLOBAL_APP_TITLE: string
+    VITE_WINDOW_CONFIG_KEY: string // VITE_GLOBAL_ 挂载到window上的key
   }
 }
 

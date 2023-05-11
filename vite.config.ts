@@ -30,7 +30,7 @@ export default defineConfig(({ mode, command }) => {
 
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PUBLIC_PATH, VITE_BASIC_API, VITE_PORT, VITE_DROP_CONSOLE } = viteEnv
+  const { VITE_PUBLIC_PATH, VITE_GLOBAL_BASIC_API, VITE_PORT, VITE_DROP_CONSOLE } = viteEnv
 
   return {
     root,
@@ -77,10 +77,10 @@ export default defineConfig(({ mode, command }) => {
     server: {
       port: VITE_PORT,
       proxy: {
-        [VITE_BASIC_API]: {
+        [VITE_GLOBAL_BASIC_API]: {
           target: 'http://192.168.1.1:3000',
           changeOrigin: true,
-          rewrite: (path) => path.replace(new RegExp(`^${process.env.VITE_BASIC_API}`), '')
+          rewrite: (path) => path.replace(new RegExp(`^${process.env.VITE_GLOBAL_BASIC_API}`), '')
         }
       }
     }
