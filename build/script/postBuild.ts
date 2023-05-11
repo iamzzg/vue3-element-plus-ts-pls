@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import fs, { writeFileSync } from 'fs-extra'
 
 import pkg from '../../package.json'
-import { getRootPath, getEnvConfig } from '../utils'
+import { getRootPath, getEnvConfig, getConfInWindowKey } from '../utils'
 import { GLOBAL_CONFIG_FILE_NAME as configFileName, OUTPUT_DIR } from '../constant'
 
 // build后脚本,构建 _app.config.js 定义全局变量
@@ -18,7 +18,7 @@ export const runPostBuild = () => {
     process.exit(1)
   }
 }
-const configName = pkg.name
+
 // const OUTPUT_DIR = 'dist'
 // const configFileName = GLOBAL_CONFIG_FILE_NAME
 
@@ -27,8 +27,13 @@ const configName = pkg.name
  */
 function buildGlobalConfig() {
   const envConfig = getEnvConfig()
+
+  const configName = getConfInWindowKey(envConfig)
   try {
     // write env.global config.js
+    //window["VITE_GLOBAL_WINDOW_CONFIG_KEY"] = {
+    // "VITE_GLOBAL_XXX":""
+    // }
     const windowConf = `window["${configName}"]`
     // Ensure that the variable will not be modified
     const configStr = `${windowConf}=${JSON.stringify(envConfig)};

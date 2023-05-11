@@ -7,20 +7,20 @@
     "email": "785864219@qq.com"
   },
   "scripts": {
-    "commit": "git-cz",
-    "dev": "vite",
-    "build:type-check": "run-p type-check build-only",
-    "preview": "vite preview",
     "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
     "build:report": "cross-env REPORT=true pnpm build",
-    "type-check": "vue-tsc --noEmit --skipLibCheck",
+    "build:type-check": "run-p type-check build-only",
+    "commit": "git-cz",
+    "dev": "vite",
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "lint:prettier": "prettier --write src/",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "lint:lint-staged": "lint-staged",
-    "prepare": "husky install",
     "new": "plop",
-    "svgo": "svgo -f src/assets/svgs -o src/assets/icons --config=src/assets/svgo.config.js"
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "svgo": "svgo -f src/assets/svgs -o src/assets/icons --config=src/assets/svgo.config.js",
+    "type-check": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@vueuse/core": "^10.1.2",

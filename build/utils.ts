@@ -3,6 +3,10 @@ import path from 'node:path'
 import dotenv from 'dotenv'
 import { EXTRACT_ENV_PREFIX } from './constant'
 
+type KeyStartWithVITE_GLOBAL_<T> = {
+  [K in keyof T as K extends `VITE_GLOBAL_${string}` ? K : never]: T[K]
+}
+
 // 把环境变量字符串变成字符串，变量，
 export const wrapperEnv = (env: Recordable): ViteEnv => {
   const ret: any = {}
@@ -82,14 +86,16 @@ export const getEnvConfig = (match = EXTRACT_ENV_PREFIX, envNames = getEnvFileEx
     }
   })
   // console.log('筛选后::>>', globalEnv)
-  return globalEnv
+  return globalEnv as KeyStartWithVITE_GLOBAL_<ViteEnv>
 }
 
 /**
- * 获取挂载到 window 下的 key 名
+ * 获取挂载到 window 下的 key 名,window["__PROD_APP_CONF__"]
  * @param env
  * @returns
  */
-export const getConfInWindowKey = (env: ViteEnv) => {
-  return `__PROD__${env.VITE_WINDOW_CONFIG_KEY || 'APP'}__CONF__`.toUpperCase().replace(/\s/g, '')
+export const getConfInWindowKey = (env: KeyStartWithVITE_GLOBAL_<ViteEnv>) => {
+  return `__PROD__${env.VITE_GLOBAL_WINDOW_CONFIG_KEY || 'APP'}__CONF__`
+    .toUpperCase()
+    .replace(/\s/g, '')
 }
