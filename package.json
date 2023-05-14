@@ -7,11 +7,14 @@
     "email": "785864219@qq.com"
   },
   "scripts": {
+    "dev": "vite",
+    "boostrap": "pnpm install",
     "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
     "build:report": "cross-env REPORT=true pnpm build",
-    "build:type-check": "run-p type-check build-only",
+    "build:type-check": "run-p type-check build",
     "commit": "git-cz",
-    "dev": "vite",
+    "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
+    "clean:lib": "rimraf node_modules",
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "lint:prettier": "prettier --write src/",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
@@ -19,6 +22,7 @@
     "new": "plop",
     "preview": "vite preview",
     "prepare": "husky install",
+    "reinstall": "rimraf pnpm-lock.yaml && rimraf package-lock.json && rimraf yarn.lock && rimraf node_modules && npm run boostrap",
     "svgo": "svgo -f src/assets/svgs -o src/assets/icons --config=src/assets/svgo.config.js",
     "type-check": "vue-tsc --noEmit --skipLibCheck"
   },
@@ -28,7 +32,7 @@
     "dayjs": "^1.11.7",
     "element-plus": "^2.3.4",
     "pinia": "^2.0.32",
-    "vue": "^3.2.47",
+    "vue": "^3.3.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

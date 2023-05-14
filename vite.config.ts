@@ -7,14 +7,12 @@ import path from 'node:path'
 import { wrapperEnv } from './build/utils'
 import { createVitePlugins } from './build/vite/plugin'
 import dayjs from 'dayjs'
+import { OUTPUT_DIR } from './build/constant'
 
 // app package info
 const { name, version, dependencies, devDependencies } = pkg
-const __APP__INFO = {
-  name,
-  version,
-  dependencies,
-  devDependencies,
+const __APP_INFO__ = {
+  pkg: { name, version, dependencies, devDependencies },
   lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
 }
 
@@ -39,6 +37,7 @@ export default defineConfig(({ mode, command }) => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '#': fileURLToPath(new URL('./types', import.meta.url)),
         '~/': `${path.resolve(__dirname, 'src')}/`
       }
     },
@@ -54,7 +53,7 @@ export default defineConfig(({ mode, command }) => {
       pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
     build: {
-      // target: 'es2015', //默认值是 modules,表示构建目标是现代浏览器,
+      // target: 'es2015', //默认值是 modules,表示构建目标是现代浏览器,如果是 es2015 那么就要使用terser压缩
       // cssTarget:"chrome61",// 构建的css目标浏览器
       // minify: 'terser',// 默认minify使用的是esbuild
       /**
@@ -67,11 +66,12 @@ export default defineConfig(({ mode, command }) => {
       //     drop_console: VITE_DROP_CONSOLE,
       //   },
       // },
+      outDir: OUTPUT_DIR,
       chunkSizeWarningLimit: 2000 // 规定触发警告的 chunk 大小,kbs
     },
     define: {
       //定义全局变量,替换
-      __APP__INFO: JSON.stringify(__APP__INFO)
+      __APP_INFO__: JSON.stringify(__APP_INFO__)
     },
     // VITE默认不加载 env 文件，可以通过process来获取
     server: {

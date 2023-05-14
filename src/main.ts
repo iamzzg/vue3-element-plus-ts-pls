@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 
 import App from './App.vue'
-import router from './router'
+import { setupRouter } from './router'
 
 import 'virtual:svg-icons-register' // 引入图标注册脚本
 import 'tailwindcss/tailwind.css'
@@ -17,7 +17,7 @@ function bootstrap() {
 
   setupStore(app)
 
-  app.use(router)
+  setupRouter(app)
 
   registerGlobComp(app)
 

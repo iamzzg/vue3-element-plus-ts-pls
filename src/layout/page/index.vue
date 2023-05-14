@@ -1,7 +1,7 @@
 <template>
   <router-view v-slot="{ Component, route }">
-    <transition name="slide-fade" mode="out-in" appear>
-      <keep-alive v-if="route.meta.cache" :include="cacheViews">
+    <transition :name="routeTransitionName" mode="out-in" appear>
+      <keep-alive v-if="useKeepAlive" :include="cacheViews">
         <component :is="Component" :key="route.fullPath"></component>
       </keep-alive>
       <component v-else :is="Component" :key="route.fullPath"></component>
@@ -12,11 +12,13 @@
 <script lang="ts" setup>
 import { useCachedViewStore } from '@/stores/modules/cachedView'
 import { computed } from 'vue'
+import projSetting from '@/settings/projectSetting'
 
 const cachedViewStore = useCachedViewStore()
+const { useKeepAlive, routeTransitionName } = projSetting
 
 const cacheViews = computed(() => {
-  return cachedViewStore.cachedViewArr
+  return cachedViewStore.cachedViewArr as string[]
 })
 </script>
 <style lang="scss"></style>

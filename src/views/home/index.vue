@@ -2,10 +2,15 @@
 import { useAppStore } from '@/stores/modules/appSetting'
 import { ref } from 'vue'
 
+defineOptions({
+  name: 'Home'
+})
+
 const appStore = useAppStore()
 const show = ref(true)
 const date = ref(new Date())
 
+console.log(__APP_INFO__)
 const test = () => {
   console.log(appStore.theme)
   appStore.toggleTheme()

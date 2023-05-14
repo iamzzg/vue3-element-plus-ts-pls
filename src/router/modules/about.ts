@@ -8,6 +8,9 @@ export default {
     {
       path: '',
       name: 'About',
+      meta: {
+        cache: true
+      },
       component: () => import('@/views/about/index.vue')
     }
   ]

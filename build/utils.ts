@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'node:path'
 import dotenv from 'dotenv'
 import { EXTRACT_ENV_PREFIX } from './constant'
+import type { GlobalEnvConfig } from '../types/config'
 
 type KeyStartWithVITE_GLOBAL_<T> = {
   [K in keyof T as K extends `VITE_GLOBAL_${string}` ? K : never]: T[K]
@@ -94,7 +95,7 @@ export const getEnvConfig = (match = EXTRACT_ENV_PREFIX, envNames = getEnvFileEx
  * @param env
  * @returns
  */
-export const getConfInWindowKey = (env: KeyStartWithVITE_GLOBAL_<ViteEnv>) => {
+export const getConfInWindowKey = (env: GlobalEnvConfig) => {
   return `__PROD__${env.VITE_GLOBAL_WINDOW_CONFIG_KEY || 'APP'}__CONF__`
     .toUpperCase()
     .replace(/\s/g, '')

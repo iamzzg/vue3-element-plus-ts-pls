@@ -1,4 +1,14 @@
 declare global {
+  // 定义全局变量到window中
+  const __APP_INFO__: {
+    pkg: {
+      name: string
+      version: string
+      dependencies: Recordable<string>
+      devDependencies: Recordable<string>
+    }
+    lastBuildTime: string
+  }
   // 全局类型
   declare type Nullable<T> = T | null
 

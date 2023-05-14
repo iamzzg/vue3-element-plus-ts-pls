@@ -5,7 +5,7 @@ import pkg from '../../package.json'
 import { getRootPath, getEnvConfig, getConfInWindowKey } from '../utils'
 import { GLOBAL_CONFIG_FILE_NAME as configFileName, OUTPUT_DIR } from '../constant'
 
-// build后脚本,构建 _app.config.js 定义全局变量
+// build后脚本,构建 _app.config.js 将 VITE_GLOBAL_ 开头的环境变量定义全局变量window下
 export const runPostBuild = () => {
   try {
     const argvList = process.argv.slice(2)
