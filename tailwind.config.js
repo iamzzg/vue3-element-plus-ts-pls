@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 module.exports = {
+  // 即时编译模式,text-[22px]
   mode: 'jit',
   //摇树优化
   // purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],

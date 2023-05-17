@@ -10,7 +10,6 @@ const appStore = useAppStore()
 const show = ref(true)
 const date = ref(new Date())
 
-console.log(__APP_INFO__)
 const test = () => {
   console.log(appStore.theme)
   appStore.toggleTheme()
@@ -23,10 +22,10 @@ const toggleShow = () => {
 
 <template>
   <main>
-    <el-button type="primary" size="default" @click="test">切换主题</el-button>
-    <el-button type="primary" size="default">fdf</el-button>
+    <el-button type="primary" @click="test">切换主题</el-button>
+    <el-button type="primary">fdf</el-button>
     <div class="text-[40px]">fdsf</div>
-    <el-button type="primary" size="default" @click="toggleShow">切换</el-button>
+    <el-button type="primary" @click="toggleShow">切换</el-button>
 
     <transition name="el-fade-in-linear">
       <div v-if="show" class="w-40 h-40 bg-blue-300 rounded-md"></div>
@@ -38,6 +37,8 @@ const toggleShow = () => {
 </template>
 <style lang="scss" scoped>
 .test {
+  position: relative;
+  height: 20px;
   color: $color-primary;
 }
 </style>

@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 // css样式属性,配合 stylelint-order使用
 const propertiesOrder = require('stylelint-config-recess-order/groups')
+// const propertiesOrder = require('stylelint-config-recess-order')
 module.exports = {
   root: true,
   plugins: ['stylelint-order'],

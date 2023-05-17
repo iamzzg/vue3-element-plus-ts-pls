@@ -9,6 +9,9 @@ module.exports = {
     node: true,
     browser: true
   },
+  globals: {
+    __APP_INFO__: true
+  },
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
