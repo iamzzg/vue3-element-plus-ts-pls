@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <LayoutHeader></LayoutHeader>
-    <LayoutContent></LayoutContent>
-  </div>
+  <el-container class="h-full">
+    <el-aside>
+      <LayoutSide></LayoutSide>
+    </el-aside>
+    <el-main class="p-0 flex flex-col">
+      <LayoutHeader></LayoutHeader>
+      <LayoutContent></LayoutContent>
+    </el-main>
+  </el-container>
 </template>
 
 <script lang="ts" setup>
-import LayoutContent from './LayoutContent.vue'
-import LayoutHeader from './LayoutHeader.vue'
+import LayoutContent from './content/index.vue'
+import LayoutHeader from './header/index.vue'
+import LayoutSide from './side/index.vue'
 </script>

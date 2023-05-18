@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
-import PageContent from '../page/index.vue'
+import PageContent from '../../page/index.vue'
 export default defineComponent({
   name: 'LayoutContent',
   setup() {
@@ -19,7 +19,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .layout-container {
-  height: calc(100vh - 80px);
+  // height: calc(100vh - 80px);
+  flex: 1;
   padding: 20px;
   overflow: auto;
 }
