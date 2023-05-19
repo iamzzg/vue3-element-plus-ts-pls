@@ -3,9 +3,12 @@ import { store } from '@/stores/index'
 
 import { setDomAttribute } from '@/utils/doms'
 import { ThemeEnum, THEMEKEY } from '@/enums/appEnum'
+import type { AppRouteRecordRaw } from '@/router/types'
+import { normalizeMenu } from '@/router/menu'
 
 interface AppSetting {
   theme: string
+  menuList: AppRouteRecordRaw[]
 }
 
 export const useAppStore = defineStore('appSetting', {
@@ -14,7 +17,8 @@ export const useAppStore = defineStore('appSetting', {
     initialTheme = initialTheme ? initialTheme : ThemeEnum.LIGHT
     setDomAttribute(document.querySelector('html') as HTMLElement, 'class', initialTheme)
     return {
-      theme: initialTheme
+      theme: initialTheme,
+      menuList: []
     }
   },
   getters: {
@@ -35,6 +39,13 @@ export const useAppStore = defineStore('appSetting', {
       this.theme = theme
       setDomAttribute(document.querySelector('html') as HTMLElement, 'class', this.theme)
       localStorage.setItem(THEMEKEY, this.theme)
+    },
+    setMenuList(_menuList: AppRouteRecordRaw[]) {
+      this.menuList = _menuList
+    },
+    buildMenuList(routes: AppRouteRecordRaw[]) {
+      const menus = normalizeMenu(routes)
+      this.setMenuList(menus)
     }
   }
 })

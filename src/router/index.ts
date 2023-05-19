@@ -12,9 +12,12 @@ importRouteModule()
 function importRouteModule() {
   const routeMod = import.meta.glob('./modules/*.ts', { eager: true })
 
-  for (const modules of Object.values(routeMod)) {
-    routes.push((modules as any).default as AppRouteRecordRaw)
+  const modules: AppRouteRecordRaw[] = []
+
+  for (const module of Object.values(routeMod)) {
+    modules.push((module as any).default as AppRouteRecordRaw)
   }
+  routes.push(...modules)
 }
 
 routes.push(...basiceRoutes)

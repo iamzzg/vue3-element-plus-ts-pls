@@ -4,10 +4,16 @@ export {}
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
     /**
+     * 标题
+     */
+    title: string
+    /**
      * 是否使用keep-alive缓存
      */
     cache?: boolean
-    // 排序
+    /**
+     * 排序
+     */
     orderNo?: number
   }
 }
