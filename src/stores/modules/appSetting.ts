@@ -3,42 +3,108 @@ import { store } from '@/stores/index'
 
 import { setDomAttribute } from '@/utils/doms'
 import { ThemeEnum, THEMEKEY } from '@/enums/appEnum'
+import type { AppRouteRecordRaw } from '@/router/types'
+import { normalizeMenu } from '@/router/menu'
+import { useThrottleFn } from '@vueuse/core'
 
 interface AppSetting {
   theme: string
+  menuList: AppRouteRecordRaw[]
+  menuSetting: {
+    isCollapsed: boolean
+    showMenu: boolean
+  }
+  isMobile: boolean
 }
+
+const html = document.querySelector('html') as HTMLElement
 
 export const useAppStore = defineStore('appSetting', {
   state: (): AppSetting => {
-    let initialTheme = localStorage.getItem(THEMEKEY)
+    let initialTheme = (JSON.parse(localStorage.getItem('appSetting') as string) as AppSetting)
+      ?.theme
     initialTheme = initialTheme ? initialTheme : ThemeEnum.LIGHT
-    setDomAttribute(document.querySelector('html') as HTMLElement, 'class', initialTheme)
+    html.classList.add(initialTheme)
     return {
-      theme: initialTheme
+      theme: ThemeEnum.LIGHT,
+      menuList: [],
+      menuSetting: {
+        isCollapsed: false,
+        showMenu: true
+      },
+      isMobile: false
     }
   },
   getters: {
     isDark(): boolean {
       return this.theme == ThemeEnum.DARK
+    },
+    menuCollapsed(): boolean {
+      return this.menuSetting.isCollapsed
+    },
+    showMenu(): boolean {
+      return this.menuSetting.showMenu
     }
   },
   actions: {
     toggleTheme() {
       if (this.isDark) {
-        // TODO: 修复切换light时 值是 auto,这么做也没有效果
         this.setTheme(ThemeEnum.LIGHT)
       } else {
         this.setTheme(ThemeEnum.DARK)
       }
     },
     setTheme(theme: ThemeEnum) {
+      html.classList.toggle(this.theme)
       this.theme = theme
-      setDomAttribute(document.querySelector('html') as HTMLElement, 'class', this.theme)
-      localStorage.setItem(THEMEKEY, this.theme)
+      html.classList.add(this.theme)
+    },
+    setMenuList(_menuList: AppRouteRecordRaw[]) {
+      this.menuList = _menuList
+    },
+    setIsMobile(isMobile: boolean) {
+      this.isMobile = isMobile
+      // 移动端不折叠
+      if (isMobile) {
+        this.setMenuCollapse(false)
+      }
+    },
+    setShowMenu(show: boolean) {
+      this.menuSetting.showMenu = show
+    },
+    setMenuCollapse(collapsed: boolean) {
+      this.menuSetting.isCollapsed = collapsed
+    },
+    toggleMenuCollapse(collapsed?: boolean) {
+      if (collapsed == undefined) {
+        this.menuSetting.isCollapsed = !this.menuSetting.isCollapsed
+      } else {
+        this.setMenuCollapse(collapsed)
+      }
+    },
+    buildMenuList(routes: AppRouteRecordRaw[]) {
+      const menus = normalizeMenu(routes)
+      this.setMenuList(menus)
     }
+  },
+  persist: {
+    key: 'appSetting',
+    storage: localStorage
   }
 })
 
 export const useAppStoreWithOut = () => {
   return useAppStore(store)
 }
+
+const resizeHandler = () => {
+  const appStore = useAppStore()
+  if (window.innerWidth <= 720) {
+    appStore.setIsMobile(true)
+    appStore.setShowMenu(true)
+  } else {
+    appStore.setIsMobile(false)
+    appStore.setShowMenu(false)
+  }
+}
+window.addEventListener('resize', useThrottleFn(resizeHandler, 300))

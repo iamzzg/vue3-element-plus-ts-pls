@@ -1,23 +1,22 @@
 import Layout from '@/layout/default/index.vue'
 import type { AppRouteRecordRaw } from '../types'
 export default {
-  path: '/about',
-  name: 'AboutLayout',
+  path: '/external',
+  name: 'ExternalLayout',
   component: Layout,
   meta: {
-    title: '关于',
-    cache: true,
-    hideChildrenMenu: true
+    title: '外链',
+    cache: true
   },
   children: [
     {
-      path: '',
-      name: 'About',
+      path: 'https://www.baidu.com',
+      name: 'baidu',
       meta: {
-        title: '关于',
+        title: '百度',
         cache: true
-      },
-      component: () => import('@/views/about/index.vue')
+      }
+      // component: () => import('@/views/about/index.vue')
     }
   ]
 } as AppRouteRecordRaw

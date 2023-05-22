@@ -1,8 +1,6 @@
 <template>
   <el-container class="h-full">
-    <el-aside>
-      <LayoutSide></LayoutSide>
-    </el-aside>
+    <LayoutSide></LayoutSide>
     <el-main class="p-0 flex flex-col">
       <LayoutHeader></LayoutHeader>
       <LayoutContent></LayoutContent>

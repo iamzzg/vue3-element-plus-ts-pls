@@ -1,3 +1,11 @@
 :root {
   --el-aside-width: 180px;
 }
+
+.el-aside.isCollapsed {
+  --el-aside-width: 64px;
+}
+
+.el-aside {
+  transition: width 0.35s ease-in, transform 0.1s ease-in;
+}

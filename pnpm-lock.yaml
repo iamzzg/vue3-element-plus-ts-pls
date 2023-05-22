@@ -5,6 +5,7 @@ specifiers:
   '@element-plus/icons-vue': ^2.1.0
   '@rushstack/eslint-patch': ^1.2.0
   '@types/fs-extra': ^11.0.1
+  '@types/lodash-es': ^4.17.7
   '@types/node': ^18.16.5
   '@vitejs/plugin-legacy': ^4.0.3
   '@vitejs/plugin-vue': ^4.2.3
@@ -31,8 +32,10 @@ specifiers:
   fs-extra: ^11.1.1
   husky: ^8.0.3
   lint-staged: ^13.2.2
+  lodash-es: ^4.17.21
   npm-run-all: ^4.1.5
   pinia: ^2.0.32
+  pinia-plugin-persistedstate: ^3.1.0
   plop: ^3.1.2
   postcss: ^8.4.23
   postcss-html: 1.4.0
@@ -65,7 +68,9 @@ dependencies:
   axios: 1.4.0
   dayjs: 1.11.7
   element-plus: 2.3.4_vue@3.3.2
+  lodash-es: 4.17.21
   pinia: 2.0.36_typescript@4.8.4+vue@3.3.2
+  pinia-plugin-persistedstate: 3.1.0_pinia@2.0.36
   vue: 3.3.2
   vue-router: 4.2.0_vue@3.3.2
 
@@ -73,6 +78,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.6.3
   '@rushstack/eslint-patch': 1.2.0
   '@types/fs-extra': 11.0.1
+  '@types/lodash-es': 4.17.7
   '@types/node': 18.16.8
   '@vitejs/plugin-legacy': 4.0.3_vite@4.3.5
   '@vitejs/plugin-vue': 4.2.3_vite@4.3.5+vue@3.3.2
@@ -1970,11 +1976,9 @@ packages:
     resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
     dependencies:
       '@types/lodash': 4.14.194
-    dev: false
 
   /@types/lodash/4.14.194:
     resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
-    dev: false
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
@@ -6357,6 +6361,14 @@ packages:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
     dev: true
+
+  /pinia-plugin-persistedstate/3.1.0_pinia@2.0.36:
+    resolution: {integrity: sha512-8UN+vYMEPBdgNLwceY08mi5olI0wkYaEb8b6hD6xW7SnBRuPydWHlEhZvUWgNb/ibuf4PvufpvtS+dmhYjJQOw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.36_typescript@4.8.4+vue@3.3.2
+    dev: false
 
   /pinia/2.0.36_typescript@4.8.4+vue@3.3.2:
     resolution: {integrity: sha512-4UKApwjlmJH+VuHKgA+zQMddcCb3ezYnyewQ9NVrsDqZ/j9dMv5+rh+1r48whKNdpFkZAWVxhBp5ewYaYX9JcQ==}
