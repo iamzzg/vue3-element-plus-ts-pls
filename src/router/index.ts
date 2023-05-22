@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import basiceRoutes from './constant'
 import { setupRouteGaurd } from './gaurd'
 import type { AppRouteRecordRaw } from './types'
+import { useAppStoreWithOut } from '@/stores/modules/appSetting'
 
 const routes: AppRouteRecordRaw[] = []
 // glob导入文件，eager表同步
@@ -18,6 +19,10 @@ function importRouteModule() {
     modules.push((module as any).default as AppRouteRecordRaw)
   }
   routes.push(...modules)
+
+  const appStore = useAppStoreWithOut()
+
+  appStore.buildMenuList(routes)
 }
 
 routes.push(...basiceRoutes)

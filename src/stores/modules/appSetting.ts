@@ -5,10 +5,16 @@ import { setDomAttribute } from '@/utils/doms'
 import { ThemeEnum, THEMEKEY } from '@/enums/appEnum'
 import type { AppRouteRecordRaw } from '@/router/types'
 import { normalizeMenu } from '@/router/menu'
+import { useThrottleFn } from '@vueuse/core'
 
 interface AppSetting {
   theme: string
   menuList: AppRouteRecordRaw[]
+  menuSetting: {
+    isCollapsed: boolean
+    showMenu: boolean
+  }
+  isMobile: boolean
 }
 
 export const useAppStore = defineStore('appSetting', {
@@ -18,12 +24,20 @@ export const useAppStore = defineStore('appSetting', {
     setDomAttribute(document.querySelector('html') as HTMLElement, 'class', initialTheme)
     return {
       theme: initialTheme,
-      menuList: []
+      menuList: [],
+      menuSetting: {
+        isCollapsed: false,
+        showMenu: true
+      },
+      isMobile: false
     }
   },
   getters: {
     isDark(): boolean {
       return this.theme == ThemeEnum.DARK
+    },
+    menuCollapsed(): boolean {
+      return this.menuSetting.isCollapsed
     }
   },
   actions: {
@@ -43,6 +57,22 @@ export const useAppStore = defineStore('appSetting', {
     setMenuList(_menuList: AppRouteRecordRaw[]) {
       this.menuList = _menuList
     },
+    setIsMobile(isMobile: boolean) {
+      this.isMobile = isMobile
+    },
+    setShowMenu(show: boolean) {
+      this.menuSetting.showMenu = show
+    },
+    setMenuCollapse(collapsed: boolean) {
+      this.menuSetting.isCollapsed = collapsed
+    },
+    toggleMenuCollapse(collapsed?: boolean) {
+      if (collapsed == undefined) {
+        this.menuSetting.isCollapsed = !this.menuSetting.isCollapsed
+      } else {
+        this.setMenuCollapse(collapsed)
+      }
+    },
     buildMenuList(routes: AppRouteRecordRaw[]) {
       const menus = normalizeMenu(routes)
       this.setMenuList(menus)
@@ -53,3 +83,13 @@ export const useAppStore = defineStore('appSetting', {
 export const useAppStoreWithOut = () => {
   return useAppStore(store)
 }
+
+const resizeHandler = () => {
+  const appStore = useAppStore()
+  if (window.innerWidth <= 720) {
+    appStore.setIsMobile(true)
+  } else {
+    appStore.setIsMobile(false)
+  }
+}
+window.addEventListener('resize', useThrottleFn(resizeHandler, 300))

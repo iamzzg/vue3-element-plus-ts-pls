@@ -6,6 +6,10 @@ export function isExternal(path: string): path is string {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
+export function isUrl(path: string): path is string {
+  return /^(https?:)/.test(path)
+}
+
 type EsType =
   | 'String'
   | 'Number'
@@ -38,16 +42,16 @@ export function isUndef(arg: any): boolean {
  * @param {string} str
  * @returns {Boolean}
  */
-export function isString(str) {
+export function isString(str: any) {
   if (typeof str === 'string' || str instanceof String || isType('String')) {
     return true
   }
   return false
 }
-export function isNumber(arg) {
+export function isNumber(arg: any) {
   return typeof arg == 'number' || isType('Number')
 }
-export function isBoolean(arg) {
+export function isBoolean(arg: any) {
   return typeof arg == 'boolean' || isType('Boolean')
 }
 
@@ -55,14 +59,14 @@ export function isBoolean(arg) {
  * @param {Array} arg
  * @returns {Boolean}
  */
-export function isArray(arg) {
+export function isArray(arg: any) {
   if (typeof Array.isArray === 'undefined') {
     return isType('Array')
   }
   return Array.isArray(arg)
 }
 
-export function isObject(arg) {
+export function isObject(arg: any) {
   if (arg == null) return false
   return isType('Object')
 }

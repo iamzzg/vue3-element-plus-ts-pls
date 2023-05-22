@@ -6,7 +6,8 @@ export default {
   component: Layout,
   meta: {
     title: '首页',
-    hideChildMenu: true
+    icon: 'dashboard'
+    // hideChildrenMenu: true
   },
   children: [
     {
@@ -30,14 +31,16 @@ export default {
           name: 'Analysize',
           meta: {
             title: '分析'
-          }
+          },
+          component: () => import('@/views/home/index.vue')
         },
         {
           path: '/statistic',
           name: 'sStatistic',
           meta: {
             title: '统计'
-          }
+          },
+          component: () => import('@/views/home/index.vue')
         }
       ]
     }

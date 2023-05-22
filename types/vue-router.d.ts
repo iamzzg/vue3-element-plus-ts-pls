@@ -15,5 +15,11 @@ declare module 'vue-router' {
      * 排序
      */
     orderNo?: number
+    /**
+     * 图标
+     */
+    icon?: string
+    hideMenu?: boolean
+    hideChildrenMenu?: boolean
   }
 }

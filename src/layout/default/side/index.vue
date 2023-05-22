@@ -1,79 +1,69 @@
 <template>
-  <el-button type="primary" @click="isCollapse = !isCollapse">收缩</el-button>
+  <el-aside class="layout-aside" ref="menuRef">
+    <el-button type="primary" @click="appStore.toggleMenuCollapse()">收缩</el-button>
 
-  <el-menu
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
-  >
-    <el-sub-menu :index="menuItem.path" v-for="(menuItem, index) in menuList" :key="index">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>{{ menuItem.meta.title }}</span>
-      </template>
-      <el-menu-item v-for="(childItem, childIndex) in menuItem.children" :key="childIndex">
-        {{ childItem.meta.title }}
-      </el-menu-item>
-    </el-sub-menu>
-    <!-- <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item> -->
-    <!-- <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item> -->
-  </el-menu>
+    <el-menu
+      class="el-menu-vertical"
+      :collapse="appStore.menuCollapsed"
+      @open="handleOpen"
+      @close="handleClose"
+      :collapse-transition="true"
+    >
+      <SubMenu :menu-list="menuList"> </SubMenu>
+    </el-menu>
+
+    <Teleport to="body">
+      <div class="mobile-menu-mask" @click="clickMask"></div>
+    </Teleport>
+  </el-aside>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue'
+import { computed, ref, type ComponentPublicInstance } from 'vue'
+import SubMenu from './SubMenu.vue'
+import { useAppStore } from '@/stores/modules/appSetting'
 
-const menuList = ref([
-  {
-    path: 'test1',
-    meta: { title: 'test1', icon: 'test' },
-    children: [{ path: 'test1-1', meta: { title: 'test1-1', href: 'http://www.baidu.com' } }]
-  },
-  {
-    path: 'test2',
-    meta: { title: 'test2', icon: 'test' },
-    children: [{ path: 'test2-1', meta: { title: 'test2-1', href: 'http://www.baidu.com' } }]
-  },
-  {
-    path: 'test3',
-    meta: { title: 'test3', icon: 'test' },
-    children: [
-      {
-        path: 'test3-1',
-        meta: { title: 'test3-1' },
-        children: [
-          { path: 'test3-1-1', meta: { title: 'test3-1-1' } },
-          { path: 'test3-2-1', meta: { title: 'test3-2-1' } },
-          { path: 'test3-3-1', meta: { title: 'test3-3-1' } }
-        ]
-      }
-    ]
-  }
-])
+const appStore = useAppStore()
+const menuList = computed(() => {
+  return appStore.menuList
+})
 
-const isCollapse = ref(true)
+const menuRef = ref<ComponentPublicInstance | null>(null)
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+
+const clickMask = () => {
+  console.log(menuRef)
+  menuRef.value!.$el.style.transform = `translateX(-100%)`
+}
 </script>
 
 <style lang="scss" scoped>
-.el-menu-vertical-demo {
-  min-height: 400px;
+.layout-aside {
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid #ccc;
+
+  :deep(.el-menu) {
+    border-right: none;
+  }
+}
+</style>
+
+<style>
+.mobile-menu-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 8000;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.33);
 }
 </style>
