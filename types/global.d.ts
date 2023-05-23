@@ -25,6 +25,7 @@ declare global {
     VITE_GLOBAL_BASIC_API: string
     VITE_GLOBAL_APP_TITLE: string
     VITE_GLOBAL_WINDOW_CONFIG_KEY: string // VITE_GLOBAL_ 挂载到window上的key
+    VITE_GLOBAL_IMG_PREFIX_URL: string
   }
 }
 

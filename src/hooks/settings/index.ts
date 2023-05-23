@@ -7,13 +7,18 @@ import { readonly } from 'vue'
  * @returns
  */
 export const useViteGlobalSetting = () => {
-  const { VITE_GLOBAL_APP_TITLE, VITE_GLOBAL_BASIC_API, VITE_GLOBAL_WINDOW_CONFIG_KEY } =
-    getAppEnvConfig()
+  const {
+    VITE_GLOBAL_APP_TITLE,
+    VITE_GLOBAL_BASIC_API,
+    VITE_GLOBAL_WINDOW_CONFIG_KEY,
+    VITE_GLOBAL_IMG_PREFIX_URL
+  } = getAppEnvConfig()
 
   const globalEnv: Readonly<GlobalConfig> = readonly({
     basicApi: VITE_GLOBAL_BASIC_API,
     appTitle: VITE_GLOBAL_APP_TITLE,
-    windowConfigKey: VITE_GLOBAL_WINDOW_CONFIG_KEY
+    windowConfigKey: VITE_GLOBAL_WINDOW_CONFIG_KEY,
+    imgPrefixUrl: VITE_GLOBAL_IMG_PREFIX_URL
   })
 
   return globalEnv

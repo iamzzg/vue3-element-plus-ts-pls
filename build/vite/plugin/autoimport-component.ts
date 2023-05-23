@@ -13,7 +13,8 @@ export const setupAutoImportAndComponentPlugin = () => {
     }),
     Components({
       dts: true,
-      dirs: [],
+      dirs: [], // 自动引入组件的目录
+      // include: ['SvgIcon', 'Avatar'], // 包含
       resolvers: [
         // 按需引入重写scss颜色变量
         ElementPlusResolver({

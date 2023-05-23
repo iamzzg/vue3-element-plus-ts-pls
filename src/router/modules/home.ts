@@ -1,13 +1,15 @@
 import Layout from '@/layout/default/index.vue'
 import type { AppRouteRecordRaw } from '../types'
-export default {
+
+const HomeRoute: AppRouteRecordRaw = {
   path: '/home',
   name: 'HomeLayout',
   component: Layout,
   meta: {
     title: '首页',
-    icon: 'dashboard'
-    // hideChildrenMenu: true
+    icon: 'dashboard',
+    hideChildrenMenu: true,
+    orderNo: -1
   },
   children: [
     {
@@ -18,31 +20,7 @@ export default {
         cache: true
       },
       component: () => import('@/views/home/index.vue')
-    },
-    {
-      path: '/workbench',
-      name: 'Workbench',
-      meta: {
-        title: '工作台'
-      },
-      children: [
-        {
-          path: '/analysize',
-          name: 'Analysize',
-          meta: {
-            title: '分析'
-          },
-          component: () => import('@/views/home/index.vue')
-        },
-        {
-          path: '/statistic',
-          name: 'sStatistic',
-          meta: {
-            title: '统计'
-          },
-          component: () => import('@/views/home/index.vue')
-        }
-      ]
     }
   ]
-} as AppRouteRecordRaw
+}
+export default HomeRoute

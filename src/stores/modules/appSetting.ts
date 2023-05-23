@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import { store } from '@/stores/index'
 
-import { setDomAttribute } from '@/utils/doms'
-import { ThemeEnum, THEMEKEY } from '@/enums/appEnum'
+import { ThemeEnum } from '@/enums/appEnum'
 import type { AppRouteRecordRaw } from '@/router/types'
 import { normalizeMenu } from '@/router/menu'
 import { useThrottleFn } from '@vueuse/core'
@@ -15,6 +14,7 @@ interface AppSetting {
     showMenu: boolean
   }
   isMobile: boolean
+  showLogo: boolean
 }
 
 const html = document.querySelector('html') as HTMLElement
@@ -26,13 +26,14 @@ export const useAppStore = defineStore('appSetting', {
     initialTheme = initialTheme ? initialTheme : ThemeEnum.LIGHT
     html.classList.add(initialTheme)
     return {
-      theme: ThemeEnum.LIGHT,
+      theme: initialTheme,
       menuList: [],
       menuSetting: {
         isCollapsed: false,
         showMenu: true
       },
-      isMobile: false
+      isMobile: false,
+      showLogo: false
     }
   },
   getters: {
@@ -100,11 +101,13 @@ export const useAppStoreWithOut = () => {
 const resizeHandler = () => {
   const appStore = useAppStore()
   if (window.innerWidth <= 720) {
+    if (appStore.isMobile) return
     appStore.setIsMobile(true)
     appStore.setShowMenu(true)
   } else {
+    if (!appStore.isMobile) return
     appStore.setIsMobile(false)
     appStore.setShowMenu(false)
   }
 }
-window.addEventListener('resize', useThrottleFn(resizeHandler, 300))
+window.addEventListener('resize', useThrottleFn(resizeHandler, 50))

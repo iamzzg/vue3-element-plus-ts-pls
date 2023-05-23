@@ -7,6 +7,7 @@ export default {
   meta: {
     title: '关于',
     cache: true,
+    icon: 'dashboard',
     hideChildrenMenu: true
   },
   children: [

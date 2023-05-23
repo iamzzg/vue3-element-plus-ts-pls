@@ -1,6 +1,6 @@
 <template>
   <el-menu-item class="menu-item">
-    <svg-icon :icon="item.meta?.icon" class="mr-2"></svg-icon>
+    <svg-icon v-if="item.meta?.icon" :icon="item.meta?.icon" class="mr-2"></svg-icon>
     <template #title>
       <span>{{ item.meta?.title }}</span>
     </template>
@@ -21,6 +21,5 @@ defineProps({
     default: () => ({})
   }
 })
-
 </script>
 <style lang="scss"></style>

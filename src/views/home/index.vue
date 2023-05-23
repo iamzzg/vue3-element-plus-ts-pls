@@ -22,6 +22,7 @@ const toggleShow = () => {
 
 <template>
   <main>
+    <Avatar src="./"></Avatar>
     <el-button type="primary" @click="test">切换主题</el-button>
     <el-button type="primary">fdf</el-button>
     <div class="text-[40px]">fdsf</div>

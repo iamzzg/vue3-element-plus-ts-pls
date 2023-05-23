@@ -1,4 +1,4 @@
-import { isExternal } from '@/utils/validate'
+import { isDef, isExternal } from '@/utils/validate'
 import type { AppRouteRecordRaw } from '../types'
 import { cloneDeep } from 'lodash-es'
 
@@ -8,15 +8,14 @@ export const normalizeMenu = (routes: AppRouteRecordRaw[]) => {
   function treeTraverse(nodes: any[], parentPath = '') {
     const menus: AppRouteRecordRaw[] = []
 
-    for (const route of nodes) {
+    for (const [index, route] of Object.entries(nodes)) {
       const { path, children, meta } = route
       const patchPath = parentPath + path
 
-      const menu = { ...route, path: patchPath }
-      console.log('hhh', menu)
-
       // 隐藏菜单，隐藏子菜单
-      const { hideMenu, hideChildrenMenu } = meta ?? {}
+      const { hideMenu, hideChildrenMenu, orderNo } = meta ?? {}
+      const patchMeta = isDef(orderNo) ? meta : { ...meta, orderNo: index }
+      const menu = { ...route, path: patchPath, meta: { ...patchMeta } }
 
       if (!hideMenu) {
         menus.push(menu)
@@ -35,6 +34,15 @@ export const normalizeMenu = (routes: AppRouteRecordRaw[]) => {
         Reflect.deleteProperty(menu, 'children')
       }
     }
+
+    // 升序排序
+    menus.sort((a, b) => {
+      if (a.meta?.orderNo! <= b.meta?.orderNo!) {
+        return -1
+      } else {
+        return 1
+      }
+    })
     return menus
   }
 

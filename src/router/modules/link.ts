@@ -6,7 +6,8 @@ export default {
   component: Layout,
   meta: {
     title: '外链',
-    cache: true
+    cache: true,
+    icon: 'dashboard'
   },
   children: [
     {

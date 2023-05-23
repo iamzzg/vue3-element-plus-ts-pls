@@ -6,7 +6,12 @@
     <MenuItem v-if="hasNoChildren(menu)" @click="clickMenu(menu)" :item="menu"> </MenuItem>
     <el-sub-menu :index="menu.path" v-else>
       <template #title>
-        <svg-icon :icon="menu.meta?.icon" class="mr-1 el-icon"></svg-icon>
+        <svg-icon
+          v-if="menu.meta?.icon"
+          :icon="menu.meta?.icon"
+          size="18"
+          class="mr-1 el-icon"
+        ></svg-icon>
         <span>{{ menu.meta?.title }}</span>
       </template>
       <SubMenu :menu-list="menu.children"></SubMenu>

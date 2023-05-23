@@ -1,16 +1,15 @@
 <template>
   <el-aside class="layout-aside" :class="getClass">
-    <el-button type="primary" @click="appStore.toggleMenuCollapse()">收缩</el-button>
-
-    <el-menu
-      class="el-menu-vertical"
-      :collapse="appStore.menuCollapsed"
-      @open="handleOpen"
-      @close="handleClose"
-      :collapse-transition="true"
-    >
-      <SubMenu :menu-list="menuList"> </SubMenu>
-    </el-menu>
+    <el-scrollbar>
+      <Logo v-if="showLogo"></Logo>
+      <el-menu
+        class="el-menu-vertical"
+        :collapse="appStore.menuCollapsed"
+        :collapse-transition="false"
+      >
+        <SubMenu :menu-list="menuList"> </SubMenu>
+      </el-menu>
+    </el-scrollbar>
 
     <Teleport to="body">
       <div class="mobile-menu-mask" :class="getClass" @click="clickMask"></div>
@@ -19,21 +18,16 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, type ComponentPublicInstance } from 'vue'
+import { computed } from 'vue'
 import SubMenu from './SubMenu.vue'
+import Logo from './Logo.vue'
 import { useAppStore } from '@/stores/modules/appSetting'
 
 const appStore = useAppStore()
+const { showLogo } = appStore.$state
 const menuList = computed(() => {
   return appStore.menuList
 })
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 
 const clickMask = () => {
   appStore.setShowMenu(false)
@@ -51,7 +45,7 @@ const getClass = computed(() => {
 <style lang="scss" scoped>
 .layout-aside {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   border-right: 1px solid #ccc;
 
   :deep(.el-menu) {

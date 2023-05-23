@@ -3,3 +3,16 @@ declare module 'element-plus/dist/locale/*' {
   const locale: Language
   export default locale
 }
+declare module 'element-plus/*' {
+  export default {}
+}
+
+// import '@vue/runtime-core'
+
+// export {}
+
+// declare module '@vue/runtime-core' {
+//   export interface GlobalComponents {
+//     Avatar: typeof import('../src/components/Avatar/src/index.vue')
+//   }
+// }

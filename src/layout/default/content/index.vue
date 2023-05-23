@@ -19,9 +19,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .layout-container {
-  // height: calc(100vh - 80px);
   flex: 1;
   padding: 20px;
   overflow: auto;
+  overflow-x: hidden;
 }
 </style>
