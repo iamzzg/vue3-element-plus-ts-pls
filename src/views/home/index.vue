@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Image } from '@/components/Image'
 import { ParseSlots } from '@/components/ParseSlots'
+import { Test } from '@/components/Test'
 import { useAppStore } from '@/stores/modules/appSetting'
 import { ref } from 'vue'
 
@@ -12,7 +13,7 @@ const appStore = useAppStore()
 const show = ref(true)
 const date = ref(new Date())
 
-const test = () => {
+const test1 = () => {
   console.log(appStore.theme)
   appStore.toggleTheme()
 }
@@ -24,17 +25,26 @@ const toggleShow = () => {
 
 <template>
   <main>
-    <ParseSlots>
-      <Image>
+    <Test>
+      <!-- <div>test</div> -->
+
+      <template #error>
+        <div>error</div>
+      </template>
+    </Test>
+    <!-- <ParseSlots>
+      <el-image :src="`/src/assets/images/avatar.png`"> </el-image>
+    </ParseSlots> -->
+
+    <!-- <Image>
         <template #placeholder>
           <div>描述内容</div>
         </template>
-      </Image>
-    </ParseSlots>
+      </Image> -->
     <br />
 
     <Avatar src="./"></Avatar>
-    <el-button type="primary" @click="test">切换主题</el-button>
+    <el-button type="primary" @click="test1">切换主题</el-button>
     <el-button type="primary">fdf</el-button>
     <div class="text-[40px]">fdsf</div>
     <el-button type="primary" @click="toggleShow">切换</el-button>
