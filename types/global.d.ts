@@ -14,6 +14,8 @@ declare global {
 
   declare type Recordable<T = any> = Record<string, T>
 
+  declare type Fn = (...args: any[]) => any
+
   interface ImportMetaEnv extends ViteEnv {
     __: unknown
   }

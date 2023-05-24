@@ -47,6 +47,6 @@ export const normalizeMenu = (routes: AppRouteRecordRaw[]) => {
   }
 
   const menus = treeTraverse(routes)
-  console.log('菜单:>>>>>>>', menus)
+  // console.log('菜单:>>>>>>>', menus)
   return menus
 }

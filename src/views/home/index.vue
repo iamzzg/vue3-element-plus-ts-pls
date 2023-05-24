@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Image } from '@/components/Image'
+import { ParseSlots } from '@/components/ParseSlots'
 import { useAppStore } from '@/stores/modules/appSetting'
 import { ref } from 'vue'
 
@@ -22,6 +24,15 @@ const toggleShow = () => {
 
 <template>
   <main>
+    <ParseSlots>
+      <Image>
+        <template #placeholder>
+          <div>描述内容</div>
+        </template>
+      </Image>
+    </ParseSlots>
+    <br />
+
     <Avatar src="./"></Avatar>
     <el-button type="primary" @click="test">切换主题</el-button>
     <el-button type="primary">fdf</el-button>
