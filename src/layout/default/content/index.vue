@@ -23,5 +23,12 @@ export default defineComponent({
   padding: 20px;
   overflow: auto;
   overflow-x: hidden;
+  background-color: #eee;
+}
+
+.dark {
+  .layout-container {
+    background-color: #292626bf;
+  }
 }
 </style>

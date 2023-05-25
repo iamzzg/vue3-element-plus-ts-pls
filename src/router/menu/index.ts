@@ -2,6 +2,7 @@ import { isDef, isExternal } from '@/utils/validate'
 import type { AppRouteRecordRaw } from '../types'
 import { cloneDeep } from 'lodash-es'
 
+// 路由最终是打平成二级路由，层级是为了显示为菜单
 export const normalizeMenu = (routes: AppRouteRecordRaw[]) => {
   routes = cloneDeep(routes)
 

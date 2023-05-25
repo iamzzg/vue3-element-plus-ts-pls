@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Image } from '@/components/Image'
-import { ParseSlots } from '@/components/ParseSlots'
-import { Test } from '@/components/Test'
 import { useAppStore } from '@/stores/modules/appSetting'
+import { useToggle } from '@vueuse/core'
 import { ref } from 'vue'
 
 defineOptions({
@@ -21,29 +20,17 @@ const test1 = () => {
 const toggleShow = () => {
   show.value = !show.value
 }
+const [loading, toggleLoading] = useToggle(true)
+
+setTimeout(() => {
+  toggleLoading()
+}, 3000)
 </script>
 
 <template>
   <main>
-    <Test>
-      <!-- <div>test</div> -->
-
-      <template #error>
-        <div>error</div>
-      </template>
-    </Test>
-    <!-- <ParseSlots>
-      <el-image :src="`/src/assets/images/avatar.png`"> </el-image>
-    </ParseSlots> -->
-
-    <!-- <Image>
-        <template #placeholder>
-          <div>描述内容</div>
-        </template>
-      </Image> -->
-    <br />
-
     <Avatar src="./"></Avatar>
+
     <el-button type="primary" @click="test1">切换主题</el-button>
     <el-button type="primary">fdf</el-button>
     <div class="text-[40px]">fdsf</div>

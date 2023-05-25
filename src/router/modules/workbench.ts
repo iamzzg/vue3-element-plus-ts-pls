@@ -5,6 +5,7 @@ const Route: AppRouteRecordRaw = {
   path: '/workbench',
   name: 'WorkbenchLayout',
   component: Layout,
+  redirect: '/workbench/analysize',
   meta: {
     title: '工作台',
     icon: 'dashboard',

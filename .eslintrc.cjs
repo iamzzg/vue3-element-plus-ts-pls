@@ -22,6 +22,7 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
+    'no-empty': 'warn',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'vue/multi-word-component-names': [

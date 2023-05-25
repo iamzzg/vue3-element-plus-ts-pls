@@ -9,6 +9,10 @@ export default defineComponent({
     src: {
       type: String,
       default: ''
+    },
+    size: {
+      type: [Number, String],
+      default: 60
     }
   },
   setup(props, { attrs }) {
@@ -23,8 +27,12 @@ export default defineComponent({
       }
     })
 
+    const size = computed(() => {
+      return Number(props.size)
+    })
+
     return () => (
-      <el-avatar class="cursor-pointer" {...attrs} size="60" src={getRealSrc}>
+      <el-avatar class="cursor-pointer" {...attrs} size={size.value} src={getRealSrc.value}>
         <img src={errorAvatar} />
       </el-avatar>
     )

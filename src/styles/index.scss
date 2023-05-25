@@ -21,17 +21,24 @@ body {
   height: 100%;
 }
 
+ul,
+li,
+ol {
+  list-style: none;
+}
+
 // ::-webkit-scrollbar-thumb {
 //   width: 10px;
 //   background-color: #66212197;
 // }
 
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #eee;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-track {

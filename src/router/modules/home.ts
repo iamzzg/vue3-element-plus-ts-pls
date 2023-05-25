@@ -17,7 +17,8 @@ const HomeRoute: AppRouteRecordRaw = {
       name: 'Home',
       meta: {
         title: '首页',
-        cache: true
+        cache: true,
+        hideBreadCrumb: true
       },
       component: () => import('@/views/home/index.vue')
     }

@@ -26,14 +26,14 @@ export const useAppStore = defineStore('appSetting', {
     initialTheme = initialTheme ? initialTheme : ThemeEnum.LIGHT
     html.classList.add(initialTheme)
     return {
-      theme: initialTheme,
+      theme: ThemeEnum.LIGHT,
       menuList: [],
       menuSetting: {
         isCollapsed: false,
         showMenu: true
       },
       isMobile: false,
-      showLogo: false
+      showLogo: true
     }
   },
   getters: {
@@ -110,4 +110,5 @@ const resizeHandler = () => {
     appStore.setShowMenu(false)
   }
 }
+
 window.addEventListener('resize', useThrottleFn(resizeHandler, 50))

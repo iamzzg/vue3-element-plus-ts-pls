@@ -1,5 +1,10 @@
 :root {
   --el-aside-width: 180px;
+  // 菜单颜色
+  --el-menu-bg-color: #001529;
+  --el-menu-text-color: #ddd;
+  --el-menu-hover-bg-color: var(--el-color-primary);
+  --el-menu-active-color: var(--el-color-primary);
 }
 
 .el-aside.isCollapsed {
@@ -7,5 +12,12 @@
 }
 
 .el-aside {
+  background-color: var(--el-menu-bg-color);
   transition: width 0.075s linear, transform 0.1s ease-in;
+}
+
+.el-menu-item {
+  &:active {
+    background-color: var(--el-menu-bg-color);
+  }
 }

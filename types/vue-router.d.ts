@@ -21,5 +21,6 @@ declare module 'vue-router' {
     icon?: string
     hideMenu?: boolean
     hideChildrenMenu?: boolean
+    hideBreadCrumb?: boolean
   }
 }

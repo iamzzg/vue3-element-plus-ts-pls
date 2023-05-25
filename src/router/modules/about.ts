@@ -16,7 +16,8 @@ export default {
       name: 'About',
       meta: {
         title: '关于',
-        cache: true
+        cache: true,
+        hideBreadCrumb: true
       },
       component: () => import('@/views/about/index.vue')
     }

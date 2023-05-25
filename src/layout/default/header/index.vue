@@ -4,13 +4,17 @@
       <Expand v-if="showExpand" />
       <Fold v-else></Fold>
     </el-icon>
-
+    <HeaderBreadCrumb></HeaderBreadCrumb>
     <ThemeSwitcher class="ml-auto"></ThemeSwitcher>
+
+    <UserInfo></UserInfo>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { Expand, Fold } from '@element-plus/icons-vue'
+import UserInfo from './UserInfo.vue'
+import HeaderBreadCrumb from './BreadCrumb.vue'
 import ThemeSwitcher from './ThemeSwitcher.vue'
 import { useAppStore } from '@/stores/modules/appSetting'
 import { computed } from 'vue'

@@ -16,3 +16,8 @@ declare module 'element-plus/*' {
 //     Avatar: typeof import('../src/components/Avatar/src/index.vue')
 //   }
 // }
+// declare module 'vue' {
+//   export type Vnode = {
+//     ctx: any
+//   }
+// }
